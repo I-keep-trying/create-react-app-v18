@@ -1,25 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from './logo.svg'
+import './App.css'
+import OAuth2Login from 'react-simple-oauth2-login'
 
 function App() {
+  const onSuccess = (response) => console.log(response)
+  const onFailure = (response) => console.error(response)
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <OAuth2Login
+        authorizationUrl={process.env.REACT_APP_GOOGLE_AUTH_URI}
+        responseType="token"
+        clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+        redirectUri="https://cra-social-login.herokuapp.com/api/auth/callback/google"
+        onSuccess={onSuccess}
+        onFailure={onFailure}
+      />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
